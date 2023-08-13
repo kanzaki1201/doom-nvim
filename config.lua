@@ -6,13 +6,13 @@
 
 -- ADDING A PACKAGE
 --
--- doom.use_package("EdenEast/nightfox.nvim", "sainnhe/sonokai")
--- doom.use_package({
---   "ur4ltz/surround.nvim",
---   config = function()
---     require("surround").setup({mappings_style = "sandwich"})
---   end
--- })
+doom.use_package("EdenEast/nightfox.nvim", "sainnhe/sonokai")
+doom.use_package({
+  "ur4ltz/surround.nvim",
+  config = function()
+    require("surround").setup({mappings_style = "surround"})
+ end
+})
 
 -- ADDING A KEYBIND
 --
@@ -25,6 +25,13 @@
 --     {"p", function()
 --       print("Not implemented yet")
 --     end, name = ""}
+--   }}
+-- })
+-- doom.use_keybind({
+--   -- The `name` field will add the keybind to whichkey
+--   {"<leader>s", name = '+search', {
+--     -- Bind to a vim command
+--     {"g", "Telescope grep_string<CR>", name = "Grep project"},
 --   }}
 -- })
 

@@ -25,6 +25,7 @@ auto_install.packages = {
 
 auto_install.configs = {}
 auto_install.configs["mason.nvim"] = function()
+  -- require("mason").setup()
   require("mason").setup()
 end
 
