@@ -76,18 +76,21 @@ return {
 
     -- Compiled
     -- "rust",
-    -- "cc",
+    "cc",
     -- "ocaml",
     -- "haskell",
 
     -- JIT
-    -- "c_sharp",
+    "c_sharp",
     -- "kotlin",
     -- "java",
 
     "json",
     "yaml",
+    "json",
+    "yaml",
     -- "toml",
+    "markdown",
     "markdown",
     -- "terraform",       -- Terraform / hcl files support
     -- "dockerfile",

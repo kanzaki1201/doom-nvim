@@ -19,7 +19,8 @@ c_sharp.settings = {
   lsp_config = function()
     local lsp_util = require("lspconfig.util")
     return {
-      cmd = { c_sharp.settings.lsp_name },
+      -- cmd = { c_sharp.settings.lsp_name },
+      cmd = {"C:\\Users\\win11\\AppData\\Local\\nvim-data\\mason\\packages\\omnisharp\\OmniSharp.exe"},
       root_dir = function(fname)
         return lsp_util.root_pattern("*.sln")(fname)
           or lsp_util.root_pattern("*.csproj")(fname)

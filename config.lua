@@ -83,6 +83,13 @@ doom.use_package({
 --     end, name = ""}
 --   }}
 -- })
+-- doom.use_keybind({
+--   -- The `name` field will add the keybind to whichkey
+--   {"<leader>s", name = '+search', {
+--     -- Bind to a vim command
+--     {"g", "Telescope grep_string<CR>", name = "Grep project"},
+--   }}
+-- })
 
 -- ADDING A COMMAND
 --

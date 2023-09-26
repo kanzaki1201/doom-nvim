@@ -14,8 +14,8 @@ local configuration = {
   plugins_integrations = {
     neorg = true,
     barbar = true,
-    bufferline = false,
-    gitgutter = false,
+    bufferline = true,
+    gitgutter = true,
     gitsigns = true,
     telescope = true,
     neogit = true,
@@ -24,7 +24,7 @@ local configuration = {
     startify = true,
     whichkey = true,
     indent_blankline = true,
-    lspsaga = false,
+    lspsaga = true,
   },
 }
 
