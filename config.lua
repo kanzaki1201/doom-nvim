@@ -16,7 +16,9 @@ doom.use_package({
 
 doom.use_package("averms/black-nvim")
 
-doom.use_package({ "dccsillag/magma-nvim", run = ":UpdateRemotePlugins" })
+doom.use_package({
+  "luk400/vim-jukit",
+})
 
 doom.use_package({
   "nvim-orgmode/orgmode",
