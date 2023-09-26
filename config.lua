@@ -4,70 +4,93 @@
 -- Just override stuff in the `doom` global table (it's injected into scope
 -- automatically).
 
--- Fix for windows
--- require 'nvim-treesitter.install'.compilers = { "clang" }
-
 -- ADDING A PACKAGE
 --
 -- doom.use_package("EdenEast/nightfox.nvim", "sainnhe/sonokai")
 doom.use_package({
   "ur4ltz/surround.nvim",
   config = function()
-    require("surround").setup({mappings_style = "sandwich"})
-  end
+    require("surround").setup({ mappings_style = "sandwich" })
+  end,
 })
 
-doom.use_package({
-  "luk400/vim-jukit",
-})
+doom.use_package("averms/black-nvim")
 
+doom.use_package({ "dccsillag/magma-nvim", run = ":UpdateRemotePlugins" })
 
 doom.use_package({
   "nvim-orgmode/orgmode",
   config = function()
-    require('orgmode').setup_ts_grammar()
-      -- Setup treesitter
-    require('nvim-treesitter.configs').setup({
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = { 'org' },
+    require("orgmode").setup_ts_grammar()
+    require("orgmode").setup({
+      -- These are nnoremap maps
+      mappings = {
+        org = {
+          org_todo = { "t", "cit" },
+          org_insert_heading_respect_content = { "<Enter>", "<Leader>oih" },
+          org_cycle = { "<TAB>", "za" },
+          org_global_cycle = { "<S-TAB>", "zA" },
+        },
       },
-      ensure_installed = { 'org' },
     })
-
-    -- Setup orgmode
-    require('orgmode').setup({
-      org_agenda_files = 'C:\\Users\\Lain\\logseqsecondbrain\\**\\*',
-    })
-  end
+  end,
 })
--- run :TSUpdate orgmode for the first time
 
--- orgmode autocomplete
--- require'nvim-cmp'.setup({
---   sources = {
---     { name = 'orgmode' }
---   }
--- })
---
+-- Orgmode: input mode tab and shift-tab to promote/demote subtree
+doom.use_cmd({
+  {
+    "MyTabOrgDemote",
+    function()
+      local ok, orgMappings = pcall(require, "orgmode.org.mappings")
+      if ok and orgMappings and vim.bo.filetype == "org" then
+        orgMappings.do_demote({ args = { true }, opts = { desc = "org demote subtree" } })
+      end
+    end,
+  },
+  {
+    "MyTabOrgPromote",
+    function()
+      local ok, orgMappings = pcall(require, "orgmode.org.mappings")
+      if ok and orgMappings and vim.bo.filetype == "org" then
+        orgMappings.do_promote({ args = { true }, opts = { desc = "org demote subtree" } })
+      end
+    end,
+  },
+})
+doom.use_keybind({
+  {
+    mode = "i",
+    {
+      { "<TAB>",   "<cmd>MyTabOrgDemote<CR>" },
+      { "<S-TAB>", "<cmd>MyTabOrgPromote<CR>" },
+    },
+  },
+})
 
 doom.use_package({
   "github/copilot.vim",
   config = function()
     vim.g.copilot_no_tab_map = true
-    local keymap = vim.keymap.set
-    -- https://github.com/orgs/community/discussions/29817#discussioncomment-4217615
-    keymap(
-      "i",
-      "<C-g>",
-      'copilot#Accept("<CR>")',
-      { silent = true, expr = true, script = true, replace_keycodes = false }
-    )
-    keymap("i", "<C-j>", "<Plug>(copilot-next)")
-    keymap("i", "<C-k>", "<Plug>(copilot-previous)")
-    keymap("i", "<C-o>", "<Plug>(copilot-dismiss)")
-    keymap("i", "<C-f>", "<Plug>(copilot-suggest)")
-  end
+  end,
+})
+doom.use_keybind({
+  -- https://github.com/orgs/community/discussions/29817#discussioncomment-4217615
+  {
+    mode = "i",
+    {
+      {
+        options = { expr = true, script = true, replace_keycodes = false },
+        {
+          { "<C-g>", 'copilot#Accept("<CR>")' },
+          { "<C-CR>", 'copilot#Accept("<CR>")' },
+        },
+      },
+      { "<C-j>", "<Plug>(copilot-next)" },
+      { "<C-k>", "<Plug>(copilot-previous)" },
+      { "<C-o>", "<Plug>(copilot-dismiss)" },
+      { "<C-f>", "<Plug>(copilot-suggest)" },
+    },
+  },
 })
 
 -- ADDING A KEYBIND
@@ -81,13 +104,6 @@ doom.use_package({
 --     {"p", function()
 --       print("Not implemented yet")
 --     end, name = ""}
---   }}
--- })
--- doom.use_keybind({
---   -- The `name` field will add the keybind to whichkey
---   {"<leader>s", name = '+search', {
---     -- Bind to a vim command
---     {"g", "Telescope grep_string<CR>", name = "Grep project"},
 --   }}
 -- })
 
@@ -105,3 +121,21 @@ doom.use_package({
 -- })
 
 -- vim: sw=2 sts=2 ts=2 expandtab
+
+-- PATCH: in order to address the message:
+-- vim.treesitter.query.get_query() is deprecated, use vim.treesitter.query.get() instead. :help deprecated
+--   This feature will be removed in Nvim version 0.10
+local orig_notify = vim.notify
+local filter_notify = function(text, level, opts)
+  -- more specific to this case
+  if
+      type(text) == "string"
+      and (string.find(text, "get_query", 1, true) or string.find(text, "get_node_text", 1, true))
+  then
+    -- for all deprecated and stack trace warnings
+    -- if type(text) == "string" and (string.find(text, ":help deprecated", 1, true) or string.find(text, "stack trace", 1, true)) then
+    return
+  end
+  orig_notify(text, level, opts)
+end
+vim.notify = filter_notify
