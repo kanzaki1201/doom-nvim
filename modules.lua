@@ -35,7 +35,7 @@ return {
     -- "trouble",         -- A pretty diagnostic viewer
     "statusline", -- A pretty status line at the bottom of the buffer
     -- "minimap",         -- Shows current position in document
-    -- "terminal",        -- Integrated terminal in neovim
+    "terminal",        -- Integrated terminal in neovim
     -- "symbols",         -- Navigate between code symbols using telescope
     -- "ranger",          -- File explorer in neovim (TODO: Test)
     -- "restclient",      -- Test HTTP requests from neovim (TODO: Test)
@@ -47,7 +47,7 @@ return {
     "explorer", -- An enhanced filetree explorer
     -- "firenvim",        -- Embed neovim in your browser
     -- "lazygit",         -- Lazy git integration
-    -- "neogit",          -- A git client for neovim
+    "neogit",          -- A git client for neovim
     "neorg", -- Organise your life
     "projects", -- Quickly switch between projects
     -- "superman",        -- Read unix man pages in neovim
@@ -58,9 +58,9 @@ return {
   langs = {
     -- Scripts
     "lua",
-    -- "python",
-    -- "bash",
-    -- "fish",
+    "python",
+    "bash",
+    "fish",
     -- "gdscript",
     -- "gdscript",
     -- "php",
@@ -85,10 +85,10 @@ return {
     -- "kotlin",
     -- "java",
 
-    -- "json",
-    -- "yaml",
+    "json",
+    "yaml",
     -- "toml",
-    -- "markdown",
+    "markdown",
     -- "terraform",       -- Terraform / hcl files support
     -- "dockerfile",
     -- "nix",             -- Nix declarations
