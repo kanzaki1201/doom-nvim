@@ -1,3 +1,4 @@
+# Rainbow win 11 install path: `~/yadm/nvim`
 
 <div align="center">
 
