@@ -2,6 +2,8 @@
 
 <div align="center">
 
+This is my own config for manjaro.
+
 # Doom Nvim
 
 ![License](https://img.shields.io/github/license/doom-neovim/doom-nvim?style=for-the-badge)
@@ -234,7 +236,7 @@ return {
 ```
 
 The same module with be avaliable in your `config.lua` in the `doom.features.module_name` field.
-The settings should have autocomplete from sumneko lua lsp.
+The settings should have autocomplete from lua lsp.
 ```lua
 -- config.lua
 local whichkey = doom.features.whichkey -- Get the whichkey module

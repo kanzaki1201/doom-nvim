@@ -41,7 +41,6 @@ repl.settings = {
 repl.packages = {
   ["iron.nvim"] = {
     "hkupty/iron.nvim",
-    commit = "f4131638454aeb96cbd92652dd8c396e48eb4118",
     cmd = "IronRepl",
   },
 }
@@ -72,6 +71,7 @@ repl.binds = {
       { "<cr>", "<NOP>", name = "Enter" },
       { "C", "<NOP>", name = "Clear" },
     },
+    mode = "nv",
   },
   {
     "<C-e>",
